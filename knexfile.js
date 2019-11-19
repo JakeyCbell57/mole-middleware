@@ -8,7 +8,7 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: 'postgres://billy:devbotmachine@localhost/mole'
+    connection: process.env.DATABASE_URL
   },
 
   production: {
