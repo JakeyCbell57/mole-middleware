@@ -18,7 +18,9 @@ const rateLimiter = expressRateLimiter({
 server.use(cors);
 server.use(bodyParser.json());
 
-server.use('trust proxy', 1);
-server.use(rateLimiter);
+if(process.env.NODE_ENV === 'production') {
+    server.set('trust proxy', '127.0.0.1');
+    server.use(rateLimiter);
+}
 
 server.listen(PORT, () => console.log(`server listening on ${PORT}`));
