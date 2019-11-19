@@ -6,19 +6,24 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const expressRateLimiter = require('express-rate-limit');
+const RateLimitRedis = require('rate-limit-redis');
+const redis = require('redis');
 
 const server = express();
 const PORT = process.env.PORT;
-
-const rateLimiter = expressRateLimiter({
-    windowMS: 5 * 60 * 1000,
-    max: 500
-});
 
 server.use(cors);
 server.use(bodyParser.json());
 
 if(process.env.NODE_ENV === 'production') {
+    const client = redis.createClient({ url: process.env.REDIS_URL });
+
+    const rateLimiter = expressRateLimiter({
+      store: new RateLimitRedis({ client }),
+      windowMS: 60 * 1000,
+      max: 500
+    });
+
     server.set('trust proxy', '127.0.0.1');
     server.use(rateLimiter);
 }
