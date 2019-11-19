@@ -1,6 +1,6 @@
 // Update with your config settings.
 
-if(process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   require('dotenv').config()
 }
 
@@ -8,7 +8,7 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: 'postgres://localhost/mole'
+    connection: 'postgres://billy:devbotmachine@localhost/mole'
   },
 
   production: {
