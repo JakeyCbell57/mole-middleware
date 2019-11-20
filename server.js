@@ -10,13 +10,12 @@ const bodyParser = require('body-parser');
 const expressRateLimiter = require('express-rate-limit');
 const RateLimitRedis = require('rate-limit-redis');
 const redis = require('redis');
+const { authorization } = require('./middleware');
 const woocommerce = require('./woocommerce');
 
 const server = express();
 const PORT = process.env.PORT;
 
-server.use(cors());
-server.use(bodyParser.json());
 
 if (process.env.NODE_ENV === 'development') {
   const morgan = require('morgan');
@@ -36,6 +35,10 @@ if (process.env.NODE_ENV === 'production') {
   server.set('trust proxy', '127.0.0.1');
   server.use(rateLimiter);
 }
+
+server.use(cors());
+server.use(bodyParser.json());
+server.use(authorization);
 
 server.post('/report', (req, res, next) => {
   try {
