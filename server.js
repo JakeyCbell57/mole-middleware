@@ -18,6 +18,11 @@ const PORT = process.env.PORT;
 server.use(cors);
 server.use(bodyParser.json());
 
+if (process.env.NODE_ENV === 'development') {
+  const morgan = require('morgan');
+  server.use(morgan('dev'));
+}
+
 //rate limit onlt in production
 if (process.env.NODE_ENV === 'production') {
   const client = redis.createClient({ url: process.env.REDIS_URL });
@@ -32,12 +37,13 @@ if (process.env.NODE_ENV === 'production') {
   server.use(rateLimiter);
 }
 
-server.get('/report', (req, res, next) => {
+server.post('/report', (req, res, next) => {
   try {
+    console.log(req.body)
     const { apikey } = req.query;
 
     if (apikey === process.env.API_KEY) {
-      woocommerce.queryOrders();
+      // woocommerce.queryOrders();
       res.end();
 
     } else {
