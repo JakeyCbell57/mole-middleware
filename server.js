@@ -15,7 +15,7 @@ const woocommerce = require('./woocommerce');
 const server = express();
 const PORT = process.env.PORT;
 
-server.use(cors);
+server.use(cors());
 server.use(bodyParser.json());
 
 if (process.env.NODE_ENV === 'development') {
