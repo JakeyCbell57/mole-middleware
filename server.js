@@ -11,7 +11,7 @@ const expressRateLimiter = require('express-rate-limit');
 const RateLimitRedis = require('rate-limit-redis');
 const redis = require('redis');
 const { authorization } = require('./middleware');
-const woocommerce = require('./woocommerce');
+const orders = require('./orders');
 
 const server = express();
 const PORT = process.env.PORT;
@@ -40,19 +40,12 @@ server.use(cors());
 server.use(bodyParser.json());
 server.use(authorization);
 
-server.post('/report', (req, res, next) => {
+server.post('/report', async (req, res, next) => {
   try {
-    console.log(req.body)
-    const { apikey } = req.query;
+    const data = req.body;
 
-    if (apikey === process.env.API_KEY) {
-      // woocommerce.queryOrders();
-      res.end();
-
-    } else {
-      res.status(401);
-      res.end();
-    }
+    await orders.storeIfNotExist(data);
+    res.end();
 
   } catch (error) {
     next(error);
