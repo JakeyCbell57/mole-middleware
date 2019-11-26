@@ -15,6 +15,7 @@ const orders = require('./orders');
 
 const server = express();
 const PORT = process.env.PORT;
+const minutes = num = 1 => num * 60 * 1000;
 
 
 if (process.env.NODE_ENV === 'development') {
@@ -22,14 +23,14 @@ if (process.env.NODE_ENV === 'development') {
   server.use(morgan('dev'));
 }
 
-//rate limit onlt in production
+//rate limit only in production
 if (process.env.NODE_ENV === 'production') {
   const client = redis.createClient({ url: process.env.REDIS_URL });
 
   const rateLimiter = expressRateLimiter({
     store: new RateLimitRedis({ client }),
-    windowMS: 60 * 1000,
-    max: 500
+    windowMS: minutes(1),
+    max: 600
   });
 
   server.set('trust proxy', '127.0.0.1');

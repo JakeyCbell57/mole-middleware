@@ -1,9 +1,9 @@
 const pubsub = require('pg-pubsub');
-const exchange = require('./exchange');
+const orders = require('./orders');
 
 const subscription = new pubsub(process.env.DATABASE_URL || 'postgres://localhost/mole');
 
 subscription.addChannel('new-order-event');
-subscription.on('new-order-event', exchange.buyBTC);
+subscription.on('new-order-event', orders.storeIfNotExist);
 
 module.exports = subscription;
