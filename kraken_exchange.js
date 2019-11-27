@@ -11,12 +11,6 @@ async function karkenBuyBTC({ order_total, order_id }) {
   //console.log(balance)
   let balance = 10000
 
-<<<<<<< HEAD
-  let ticker = (await kraken.api('Ticker', { pair: 'XBTCAD' }));
-  let volume = karkenCalculateVolume(ticker, balance);
-  let buy_order_BTC = await kraken.api('AddOrder', { validate: true, pair: 'XBTCAD', type: 'buy', ordertype: 'market', volume: volume, starttm: '0' });
-=======
->>>>>>> c235b4c390869f9dd9bb21ce327c076eb6f1a3a5
 
   let ticker = (await kraken.api('Ticker', { pair: 'XBTCAD' }));
   //console.log(ticker.result.XXBTZCAD.a[0])
