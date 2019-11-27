@@ -35,8 +35,16 @@ async function karkenCalculateVolume(ticker, balance) {
 }
 
 /*Transfer BTC*/
-async function karkenTranser(ticker, balance) {
+async function wallTransfer() {
 
+  const balance = await await KrakenClient.api('Balance');
+
+  const result = await kraken.api('WalletTransfer', {
+    asset: 'BTC',
+    to: 'some address',
+    from: 'internal wallet',
+    amount: 1000
+  })
 
 
 }
