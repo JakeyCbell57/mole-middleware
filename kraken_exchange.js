@@ -5,20 +5,21 @@ const secret = process.env.KRAKEN_SECRET;
 const kraken = new KrakenClient(key, secret);
 
 
+async function karkenBuyBTC({ order_total, order_id }) {
 
-function karkenBuyBTC({ order_total, order_id }) {
-
-  let balance = await kraken.api('Balance')
+  let balance = await kraken.api('Time')
   console.log(balance)
 
-  let ticker = (await kraken.api('Ticker', { pair: 'XBTCAD' }));
-  let volume = karkenCalculateVolume(ticker);
-  let buy_order_BTC = await kraken.api('AddOrder', { pair: 'XBTCAD', type: 'buy', ordertype: 'market', volume: volume, starttm: '0' }));
+  // let ticker = (await kraken.api('Ticker', { pair: 'XBTCAD' }));
+  // let volume = karkenCalculateVolume(ticker, balance);
+  // let buy_order_BTC = await kraken.api('AddOrder', { pair: 'XBTCAD', type: 'buy', ordertype: 'market', volume: volume, starttm: '0' }));
 
 
 
 
 }
+
+karkenBuyBTC({ order_total: 1, order_id: '12312' });
 
 
 

@@ -15,8 +15,8 @@ const orders = require('./orders');
 
 const server = express();
 const PORT = process.env.PORT;
-const minutes = num = 1 => num * 60 * 1000;
-
+const minutes = (num = 1) => num * 60 * 1000;
+const kraken = require('./kraken_exchange')
 
 if (process.env.NODE_ENV === 'development') {
   const morgan = require('morgan');
