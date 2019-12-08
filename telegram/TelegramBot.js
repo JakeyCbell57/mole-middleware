@@ -68,7 +68,7 @@ class TelegramBot {
     }
   }
 }
+const token = process.env.TELEGRAM_AUTH_TOKEN;
+const bot = token ? new TelegramBot(token) : null;
 
-const bot = new TelegramBot(process.env.TELEGRAM_AUTH_TOKEN);
-
-module.exports = bot
+module.exports = bot;
