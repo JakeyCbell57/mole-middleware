@@ -1,5 +1,5 @@
 
-const KrakenClient = require('kraken-api');
+const KrakenClient = require('./kraken');
 const key = process.env.KRAKEN_KEY;
 const secret = process.env.KRAKEN_SECRET;
 const kraken = new KrakenClient(key, secret);
@@ -35,8 +35,10 @@ async function karkenCalculateVolume(ticker, balance) {
 }
 
 /*Transfer BTC*/
-async function karkenTranser(ticker, balance) {
+async function karkenTranser(balance) {
 
+  let btcBalance = balance.result.XBT;
+  let walletTransfer = await kraken.api('WalletTransfer', { asset: XBT, to: process.env.KRAKEN_TO_WALLET, from: process.env.KRAKEN_TO_WALLET, amount: btcBalance });
 
 
 }
