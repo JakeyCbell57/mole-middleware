@@ -3,6 +3,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 require('./pubsub');
+const bot = require('./telegram');
 
 const express = require('express');
 const cors = require('cors');
@@ -12,6 +13,7 @@ const RateLimitRedis = require('rate-limit-redis');
 const redis = require('redis');
 const { authorization } = require('./middleware');
 const orders = require('./orders');
+
 
 const server = express();
 const PORT = process.env.PORT;

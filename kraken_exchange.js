@@ -53,5 +53,5 @@ async function wallTransfer() {
 
 module.exports = {
   karkenBuyBTC,
-  karkenTranser
+  // karkenTranser
 };
