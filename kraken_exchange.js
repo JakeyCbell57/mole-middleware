@@ -45,7 +45,7 @@ function karkenCalculateVolume(ticker, balance) {
 
   let bid_price = ticker.result.XXBTZCAD.a[0];
   let volume = balance.result.ZCAD / bid_price;
-  return volume / 3
+  return volume
 
 }
 
