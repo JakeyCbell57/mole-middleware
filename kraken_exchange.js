@@ -7,15 +7,16 @@ const kraken = new KrakenClient(key, secret);
 
 async function karkenBuyBTC({ order_total, order_id }) {
 
-  //let balance = await kraken.api('Time')
-  //console.log(balance)
-  let balance = 10000
+  //Get current Balance of CAD in Kraken Wallet
+  let balance = await kraken.api('Balance')
 
-
+  //Get current Market value of BTC
   let ticker = (await kraken.api('Ticker', { pair: 'XBTCAD' }));
-  //console.log(ticker.result.XXBTZCAD.a[0])
+
+  //Calculate Amount of BTC to purchase with funding
   let volume = karkenCalculateVolume(ticker, balance);
-  //let buy_order_BTC = await kraken.api('AddOrder', { validate: true, pair: 'XBTCAD', type: 'buy', ordertype: 'market', volume: volume, starttm: '0' });
+
+  //let buy_order_BTC = await kraken.api('AddOrder', { validate: true, pair: 'XBTCAD', type: 'buy', ordertype: 'market', volume: volume, starttm: '0', validate: true });
 
 
 
@@ -24,27 +25,18 @@ async function karkenBuyBTC({ order_total, order_id }) {
 karkenBuyBTC({ order_total: 1, order_id: '12312' });
 
 
-
 /*Calculate possible volume*/
 async function karkenCalculateVolume(ticker, balance) {
 
   let bid_price = ticker.result.XXBTZCAD.a[0];
-  let volume = bid_price / balance;
+  let volume = balance.result.ZCAD / bid_price;
   return volume
 
 }
 
 /*Transfer BTC*/
-async function wallTransfer() {
+async function karkenTranser(ticker, balance) {
 
-  const balance = await await KrakenClient.api('Balance');
-
-  const result = await kraken.api('WalletTransfer', {
-    asset: 'BTC',
-    to: 'some address',
-    from: 'internal wallet',
-    amount: 1000
-  })
 
 
 }
