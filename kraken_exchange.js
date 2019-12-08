@@ -47,5 +47,5 @@ async function karkenTranser(balance) {
 
 module.exports = {
   karkenBuyBTC,
-  karkenTranser
+  // karkenTranser
 };

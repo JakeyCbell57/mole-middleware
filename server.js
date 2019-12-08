@@ -3,6 +3,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 require('./pubsub');
+require('./schedule');
+require('./telegram');
 
 const express = require('express');
 const cors = require('cors');
@@ -13,10 +15,11 @@ const redis = require('redis');
 const { authorization } = require('./middleware');
 const orders = require('./orders');
 
+
 const server = express();
 const PORT = process.env.PORT;
 const minutes = (num = 1) => num * 60 * 1000;
-const kraken = require('./kraken_exchange')
+// const kraken = require('./kraken_exchange')
 
 if (process.env.NODE_ENV === 'development') {
   const morgan = require('morgan');
