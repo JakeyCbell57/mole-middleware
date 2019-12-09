@@ -1,6 +1,8 @@
 const scheduler = require('node-schedule');
+const kraken = require('./kraken_exchange');
+const { TelegramBot } = require('./telegram');
 
-const INTERVAL = 1;
+const INTERVAL = 5;
 const EVERY_N_MINUTES = `*/${INTERVAL} * * * *`;
 
 scheduler.scheduleJob(EVERY_N_MINUTES, () => {
@@ -8,9 +10,30 @@ scheduler.scheduleJob(EVERY_N_MINUTES, () => {
     //check balances
     //buy btc
     //transfer btc
-    console.log('testing', new Date().toISOString());
+
+
 
   } catch (error) {
     console.log(error)
   }
 });
+
+async function buy() {
+  const response = await kraken.krakenBuyBTC();
+
+  console.log({ buyResponse: response });
+
+  if (response && response.result.descr && response.result.descr.order) {
+    await TelegramBot.sendMessage(`Buy: ${response.result.descr.order}`);
+  }
+}
+
+async function transfer() {
+  const response = await kraken.krakenTransfer();
+  console.log({ transferResponse: response })
+
+  if (response && response.result && response.result.refid) {
+    await TelegramBot.sendMessage(`Transfer: ${response.btcBalance} BTC (Minus fees)`);
+  }
+
+}
