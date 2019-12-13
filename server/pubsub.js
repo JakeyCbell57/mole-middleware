@@ -1,5 +1,5 @@
 const pubsub = require('pg-pubsub');
-const orders = require('./orders');
+const orders = require('./server/orders');
 
 const subscription = new pubsub(process.env.DATABASE_URL || 'postgres://localhost/mole');
 
