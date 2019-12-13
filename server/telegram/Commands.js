@@ -7,7 +7,7 @@ const Commands = {
   SUBSCRIBE: {
     command: '/subscribe',
     action: subscribe,
-    description: 'Tell a bot to subscribe to this chat by including a bot key. The bot will then send alerts to this chat.\n\n Example: /subscribe yourbotkeyhere'
+    description: 'Subscribe to the chat'
   },
   PING: {
     command: '/hello',
@@ -40,7 +40,7 @@ async function subscribe(message, bot) {
         }
 
       } else {
-        bot.sendMessage(message.chat.id, 'Something went wrong 😔\n\nLooks like you didnt enter a proper bot key...')
+        bot.sendMessage(message.chat.id, 'Something went broke 😔\n\nLooks like you didnt enter a proper bot key...')
       }
 
     } catch (err) {

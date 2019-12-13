@@ -1,4 +1,4 @@
-const database = require('./database');
+const database = require('./src/database/database');
 
 function storeIfNotExist(orderData) {
 
